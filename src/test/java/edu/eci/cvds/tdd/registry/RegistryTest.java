@@ -40,4 +40,25 @@ public class RegistryTest {
         RegisterResult register = registry.registerVoter(person);
         Assert.assertEquals(RegisterResult.VALID, register);
     }
+
+    @Test
+    public void given_Id_When_IsLargerThan10_Then_Invalid(){
+        Person person = new Person("Juan", 1798437939, 58, Gender.MALE, true);
+        Ids register = registry.registerVoterId(person);
+        Assert.assertEquals(Ids.INVALID_ID, register);
+    }
+
+    @Test
+    public void given_Id_When_IsSmallerThan6_Then_Invalid(){
+        Person person = new Person("Juan", 7984, 58, Gender.MALE, true);
+        Ids register = registry.registerVoterId(person);
+        Assert.assertEquals(Ids.INVALID_ID, register);
+    }
+
+    @Test
+    public void given_Id_When_IsInBetween6And10_Then_Invalid(){
+        Person person = new Person("Juan", 7984576, 58, Gender.MALE, true);
+        Ids register = registry.registerVoterId(person);
+        Assert.assertEquals(Ids.VALID_ID, register);
+    }
 }
