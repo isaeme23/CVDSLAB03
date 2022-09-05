@@ -23,4 +23,16 @@ public class Registry {
         }
         return result;
     }
+
+    public RegisterResult registerAlive(Person p){
+        RegisterResult result = null;
+        if (p == null){
+            result = RegisterResult.INVALID;
+        } else if (!p.isAlive()){
+            result = RegisterResult.DEAD;
+        } else {
+            result = RegisterResult.VALID;
+        }
+        return result;
+    }
 }

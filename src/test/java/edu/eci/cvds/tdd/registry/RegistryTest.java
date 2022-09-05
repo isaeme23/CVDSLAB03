@@ -56,9 +56,32 @@ public class RegistryTest {
     }
 
     @Test
-    public void given_Id_When_IsInBetween6And10_Then_Invalid(){
+    public void given_Id_When_IsInBetween6And10_Then_Valid(){
         Person person = new Person("Juan", 7984576, 58, Gender.MALE, true);
         Ids register = registry.registerVoterId(person);
         Assert.assertEquals(Ids.VALID_ID, register);
+    }
+
+    @Test
+    public void given_Alive_When_PersonIsNull_Then_Invalid(){
+        Person person = null;
+        RegisterResult register = registry.registerAlive(person);
+        Assert.assertEquals(RegisterResult.INVALID, register);
+    }
+
+    @Test
+    public void given_Alive_When_IsFalse_Then_Dead(){
+        Person person = new Person();
+        person.setAlive(false);
+        RegisterResult register = registry.registerAlive(person);
+        Assert.assertEquals(RegisterResult.DEAD, register);
+    }
+
+    @Test
+    public void given_Alive_When_IsTrue_Then_Valid(){
+        Person person = new Person();
+        person.setAlive(true);
+        RegisterResult register = registry.registerAlive(person);
+        Assert.assertEquals(RegisterResult.VALID, register);
     }
 }
